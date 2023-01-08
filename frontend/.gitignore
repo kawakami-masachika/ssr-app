@@ -39,3 +39,6 @@ next-env.d.ts
 pnpm-lock.yaml
 packag-lock.json
 yarn.lock
+
+# husky
+/.husky/

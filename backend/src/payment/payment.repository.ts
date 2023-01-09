@@ -1,6 +1,11 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
 
+export type PaymentQueryParams = {
+  offset: number;
+  limit: number;
+};
+
 @Injectable()
 export class PaymentRepository extends PrismaClient implements OnModuleInit {
   async onModuleInit() {
@@ -18,5 +23,12 @@ export class PaymentRepository extends PrismaClient implements OnModuleInit {
       },
     });
     console.log(newPayment);
+  }
+
+  findPayments(params: PaymentQueryParams) {
+    return this.payment.findMany({
+      take: params.limit,
+      skip: params.offset,
+    });
   }
 }

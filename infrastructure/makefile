@@ -1,46 +1,51 @@
+success = "正常に完了しました"
 # 全てのmoduleで必要な依存関係を解決し、dbのcontainerを立ち上げます
 initialize-all: frontend-init backend-init db-init db-migrate db-seed
 
 # frontendの立ち上げに必要な依存関係を解決します
 frontend-init:
-	@echo "initializing frontend modules..."
+	@echo "frontendの依存関係を解決します"
 	@cd ../frontend && pnpm install
-	@echo "frontend initialization successfully completed!"
+	@echo $(success)
 
 # backendの立ち上げに必要な依存関係を解決し、dbの初期化を行います
 backend-init:
-	@echo "initializing backend modules..."
+	@echo "backendの依存関係を解決します"
 	@cd ../backend && pnpm install
-	@echo "backend initialization successfully completed!"
+	@echo $(success)
+	@echo
 
 # dbのcontainerを立ち上げます
 db-init:
-	@echo "initializing postgresql docker container..."
+	@echo "Dockerコンテナを立ち上げます"
 	docker compose up -d
-	@echo "database initialization successfully completed!"
+	@echo $(success)
+	@echo
 
 # dbをスキーマに従ってマイグレーションします
 db-migrate:
-	@echo "migrating database..."
+	@echo "データベースのマイグレーションを開始します"
 	@cd ../backend && pnpm db:migrate
-	@echo "completed!"
+	@echo $(success)
+	@echo
 
 # dbにサンプルデータを投入します
 db-seed:
-	@echo "seeding data..."
+	@echo "サンプルデータの投入を開始します"
 	@cd ../backend && pnpm db:seed
-	@echo "completed!"
+	@echo $(success)
+	@echo
 
 # インストールした全ての依存関係を削除し、初期化します
 allclean:
-	@echo "clean all installed modules and delete db container"
-	@echo "frontend cleaning..."
+	@echo "インストールした全ての依存関係とコンテナを削除します"
+	@echo "frontendの依存関係を削除します"
 	@cd ../frontend && rm -rf node_modules && rm -rf pnpm-lock.yaml
-	@echo "completed!"
-	@echo "backend cleaning..."
+	@echo $(success)
+	@echo "backendの依存関係を削除します"
 	@cd ../backend && rm -rf node_modules && rm -rf pnpm-lock.yaml
-	@echo "completed!"
-	@echo "docker cleaning..."
+	@echo $(success)
+	@echo "Dockerコンテナを削除します"
 	docker container rm -f postgres
 	docker volume rm -f infrastructure_db-store
-	@echo "completed!"
+	@echo $(success)

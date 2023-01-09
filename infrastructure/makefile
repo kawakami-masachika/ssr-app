@@ -1,5 +1,5 @@
 # 全てのmoduleで必要な依存関係を解決し、dbのcontainerを立ち上げます
-initialize-all: frontend-init backend-init db-init db-migrate
+initialize-all: frontend-init backend-init db-init db-migrate db-seed
 
 # frontendの立ち上げに必要な依存関係を解決します
 frontend-init:
@@ -23,7 +23,13 @@ db-init:
 db-migrate:
 	@echo "migrating database..."
 	@cd ../backend && pnpm db:migrate
-	@echo "complated!"
+	@echo "completed!"
+
+# dbにサンプルデータを投入します
+db-seed:
+	@echo "seeding data..."
+	@cd ../backend && pnpm db:seed
+	@echo "completed!"
 
 # インストールした全ての依存関係を削除し、初期化します
 allclean:
@@ -36,5 +42,5 @@ allclean:
 	@echo "completed!"
 	@echo "docker cleaning..."
 	docker container rm -f postgres
-	docker volume rm -f postgres
+	docker volume rm -f infrastructure_db-store
 	@echo "completed!"

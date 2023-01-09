@@ -34,3 +34,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# lock-files
+pnpm-lock.yaml
+packag-lock.json
+yarn.lock
+
+# husky
+/.husky/

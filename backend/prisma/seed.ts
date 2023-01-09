@@ -4,6 +4,13 @@ import { categories, payments } from './seed.data';
 const prisma = new PrismaClient();
 
 async function main() {
+  const payments = await prisma.payment.findMany();
+  if (payments.length) {
+    console.log('=======既に支払いデータが存在するため、削除します');
+    await prisma.payment.deleteMany();
+    console.log('=======データ削除が完了しました=======');
+  }
+
   const categories = await prisma.category.findMany();
   if (categories.length) {
     console.log('=======既にカテゴリーデータが存在するため、削除します');
@@ -14,13 +21,6 @@ async function main() {
   console.log('=======カテゴリーデータの投入を開始します=======');
   await seedCategories();
   console.log('=======データ投入が完了しました=======');
-
-  const payments = await prisma.payment.findMany();
-  if (payments.length) {
-    console.log('=======既に支払いデータが存在するため、削除します');
-    await prisma.payment.deleteMany();
-    console.log('=======データ削除が完了しました=======');
-  }
 
   console.log('=======支払いデータの投入を開始します=======');
   await seedPayments();

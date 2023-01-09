@@ -11,8 +11,7 @@ datasource db {
 }
 
 model Category {
-  id      Int       @id @default(autoincrement())
-  code    String    @unique
+  code    String    @id
   name    String
   Payment Payment[]
 }
@@ -21,8 +20,8 @@ model Payment {
   id           Int      @id @default(autoincrement())
   name         String?
   price        Int
-  category     Category @relation(fields: [categoryId], references: [id])
-  categoryId   Int
+  category     Category @relation(fields: [categoryCode], references: [code])
+  categoryCode String
   memo         String?
   purchaseDate DateTime
   createdAt    DateTime @default(now())

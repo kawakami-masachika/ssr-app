@@ -1,4 +1,3 @@
-success = "正常に完了しました"
 # 全てのmoduleで必要な依存関係を解決し、dbのcontainerを立ち上げます
 initialize-all: frontend-init backend-init db-init db-migrate db-seed
 
@@ -6,34 +5,30 @@ initialize-all: frontend-init backend-init db-init db-migrate db-seed
 frontend-init:
 	@echo "frontendの依存関係を解決します"
 	@cd ../frontend && pnpm install
-	@echo $(success)
+	@echo
 
 # backendの立ち上げに必要な依存関係を解決し、dbの初期化を行います
 backend-init:
 	@echo "backendの依存関係を解決します"
 	@cd ../backend && pnpm install
-	@echo $(success)
 	@echo
 
 # dbのcontainerを立ち上げます
 db-init:
 	@echo "Dockerコンテナを立ち上げます"
 	docker compose up -d
-	@echo $(success)
 	@echo
 
 # dbをスキーマに従ってマイグレーションします
 db-migrate:
 	@echo "データベースのマイグレーションを開始します"
 	@cd ../backend && pnpm db:migrate
-	@echo $(success)
 	@echo
 
 # dbにサンプルデータを投入します
 db-seed:
 	@echo "サンプルデータの投入を開始します"
 	@cd ../backend && pnpm db:seed
-	@echo $(success)
 	@echo
 
 # インストールした全ての依存関係を削除し、初期化します
@@ -48,4 +43,3 @@ allclean:
 	@echo "Dockerコンテナを削除します"
 	docker container rm -f postgres
 	docker volume rm -f infrastructure_db-store
-	@echo $(success)

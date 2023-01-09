@@ -10,25 +10,18 @@ async function main() {
 }
 
 async function seedCategories() {
-  return Promise.all(
-    categories.map(async (c) => {
-      const data = await prisma.category.upsert({
-        where: { code: c.code },
-        update: {},
-        create: {
-          code: c.code,
-          name: c.name,
-        },
-      });
-      logSuccess(data, data.name);
-      return data;
-    }),
-  );
+  for (const category of categories) {
+    const data = await prisma.category.upsert({
+      where: { code: category.code },
+      update: {},
+      create: category,
+    });
+    logSuccess(data);
+  }
 }
 
-function logSuccess(data: any, key: string) {
-  console.log(`${key}のデータ投入に成功しました`);
-  console.log(`data: ${JSON.stringify(data)}`);
+function logSuccess(data: any) {
+  console.log(`inserted data: ${JSON.stringify(data)}`);
 }
 
 main()

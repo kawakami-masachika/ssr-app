@@ -41,6 +41,5 @@ allclean:
 	@cd ./backend && rm -rf node_modules && rm -rf pnpm-lock.yaml
 	@echo $(success)
 	@echo "Dockerコンテナを削除します"
-	@cd ./infrastructure && docker container rm -f postgres
-	@cd ./infrastructure && docker volume rm -f infrastructure_db-store
+	@cd ./infrastructure && docker compose down -v
 	@echo "完了しました"

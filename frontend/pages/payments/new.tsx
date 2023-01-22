@@ -11,10 +11,23 @@ export type CategoryProps = {
   }
 }
 
+const headers = {
+  Accept: 'application/json',
+  'Content-Type': 'application/json',
+}
+
 const AddPayments = ({ data }: CategoryProps) => {
   const { register, handleSubmit, formState: { errors }} = useForm();
   const categories = data.items.map((c) => <option key={c.id} value={c.code }>{c.name}</option>)
-  const onSubmit = (data: any) => console.log(data);
+
+  const create = async (data :any) => {
+    console.log(data)
+    const res = await fetch('http://localhost:3200/payments', { headers,  method: 'POST', body: JSON.stringify(data) })
+    return res
+  };
+
+  const onSubmit = (data: any) => create(data);
+
   return (
     <>
       <div className="container">
@@ -43,7 +56,7 @@ const AddPayments = ({ data }: CategoryProps) => {
 
           <div>
             <label htmlFor="category">支払いカテゴリー</label>
-            <select {...register('category', { required: true })} id="category">
+            <select {...register('categoryCode', { required: true })} id="category">
               {categories}
             </select>
             {errors.category?.type === 'required' && <p role="alert">支払いカテゴリーを選択してください</p>}

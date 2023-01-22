@@ -6,23 +6,27 @@ export type PaymentQueryParams = {
   limit: number;
 };
 
+export type RegisterPaymentParams = {
+  name: string;
+  memo?: string;
+  price: string;
+  categoryCode: string;
+};
+
 @Injectable()
 export class PaymentRepository extends PrismaClient implements OnModuleInit {
   async onModuleInit() {
     await this.$connect();
   }
 
-  async addPayment() {
-    const newPayment = await this.payment.create({
+  async addPayment(params: RegisterPaymentParams) {
+    return await this.payment.create({
       data: {
-        name: '散財',
-        memo: '意志が弱かったが故の出費',
-        price: 1000,
+        ...params,
+        price: parseInt(params.price),
         purchaseDate: new Date(),
-        categoryCode: 'EGY',
       },
     });
-    console.log(newPayment);
   }
 
   findPayments(params: PaymentQueryParams) {

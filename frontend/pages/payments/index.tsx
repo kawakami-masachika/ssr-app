@@ -1,3 +1,6 @@
+import Link from "next/link"
+import { useState } from "react"
+
 export type PaymentsProps = {
   data: {
     payments: any[]
@@ -6,11 +9,14 @@ export type PaymentsProps = {
 
 const Payments = ({ data }: PaymentsProps) => {
   console.log(data)
+  const [count, setCount] = useState(0);
   const payments = data.payments.map((p) => <li key={p.id}>{p.name}</li>)
   return (
     <>
       <div>Payments</div>
       <ul>{payments}</ul>
+      <button onClick={() => setCount(count + 1)}>count up</button>
+      <Link href="/">HOME</Link>
     </>
   )
 }

@@ -10,6 +10,10 @@ export class PaymentService {
     return this.repository.findPayments(params);
   }
 
+  findPayment(id: number) {
+    return this.repository.findPayment(id);
+  }
+
   createPayment(params: RegisterPaymentParams) {
     return this.repository.addPayment(params);
   }

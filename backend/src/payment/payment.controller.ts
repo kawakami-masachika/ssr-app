@@ -1,7 +1,9 @@
+import { Payment } from '@prisma/client';
 import {
   Body,
   Controller,
   Get,
+  Param,
   ParseIntPipe,
   Post,
   Query,
@@ -24,6 +26,13 @@ export class PaymentController {
         offset,
         limit,
       }),
+    };
+  }
+
+  @Get(':id')
+  async findPayment(@Param('id', ParseIntPipe) params: number) {
+    return {
+      item: await this.service.findPayment(params),
     };
   }
 

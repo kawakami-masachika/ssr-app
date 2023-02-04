@@ -35,4 +35,12 @@ export class PaymentRepository extends PrismaClient implements OnModuleInit {
       skip: params.offset,
     });
   }
+
+  findPayment(id: number) {
+    return this.payment.findUnique({
+      where: {
+        id: id,
+      },
+    });
+  }
 }

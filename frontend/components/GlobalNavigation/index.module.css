@@ -1,0 +1,10 @@
+.globalNavigation {
+  width: 100px;
+  height: 100vh;
+}
+
+.globalNavigation > ul > li {
+  width: 100%;
+  height: 50px;
+  text-align: center;
+}

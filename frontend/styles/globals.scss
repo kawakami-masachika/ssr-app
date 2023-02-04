@@ -1,0 +1,34 @@
+@import './space.scss';
+:root {
+  * {
+    margin: 0;
+    padding: 0;
+  }
+  --c-primary: #009688;
+  --c-secondary: #4dd0e1;
+  --c-accent: #ff5722;
+  --c-danger: #f44336;
+  --c-warning: #ffeb3b;
+}
+
+@media (prefers-color-scheme: dark) {
+  .day.dark-scheme {
+    background: #333;
+    color: white;
+  }
+  .night.dark-scheme {
+    background: black;
+    color: #ddd;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .day.light-scheme {
+    background: white;
+    color: #555;
+  }
+  .night.light-scheme {
+    background: #eee;
+    color: black;
+  }
+}

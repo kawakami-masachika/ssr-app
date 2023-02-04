@@ -1,5 +1,11 @@
 # 全てのmoduleで必要な依存関係を解決し、dbのcontainerを立ち上げます
-initialize-all: frontend-init backend-init db-init db-migrate db-seed
+initialize-all: cowsay-initialize-start frontend-init backend-init db-init db-migrate db-seed cowsay-initialize-end
+
+cowsay-initialize-start:
+	@cd ./backend && pnpx cowsay "環境構築始めます"
+
+cowsay-initialize-end:
+	@cd ./backend && pnpx cowsay "終わったよ"
 
 # frontendの立ち上げに必要な依存関係を解決します
 frontend-init:

@@ -1,12 +1,13 @@
-import Link from "next/link"
-import { useForm } from "react-hook-form";
+import Head from 'next/head'
+import Link from 'next/link'
+import { useForm } from 'react-hook-form'
 
 export type CategoryProps = {
   data: {
     items: {
-      id: number;
-      code: string;
-      name: string;
+      id: number
+      code: string
+      name: string
     }[]
   }
 }
@@ -17,19 +18,30 @@ const headers = {
 }
 
 const AddPayments = ({ data }: CategoryProps) => {
-  const { register, handleSubmit, formState: { errors }} = useForm();
-  const categories = data.items.map((c) => <option key={c.id} value={c.code }>{c.name}</option>)
+  console.log(data)
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm()
+  const categories = data.items.map((c) => (
+    <option key={c.code} value={c.code}>
+      {c.name}
+    </option>
+  ))
 
-  const create = async (data :any) => {
-    console.log(data)
-    const res = await fetch('http://localhost:3200/payments', { headers,  method: 'POST', body: JSON.stringify(data) })
+  const create = async (data: any) => {
+    const res = await fetch('http://localhost:3200/payments', { headers, method: 'POST', body: JSON.stringify(data) })
     return res
-  };
+  }
 
-  const onSubmit = (data: any) => create(data);
+  const onSubmit = (data: any) => create(data)
 
   return (
     <>
+      <Head>
+        <title>add new payment</title>
+      </Head>
       <div className="container">
         <h3>支払い登録</h3>
         <form onSubmit={handleSubmit(onSubmit)}>

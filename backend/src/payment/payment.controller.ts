@@ -1,4 +1,12 @@
-import { Controller, Get, ParseIntPipe, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  ParseIntPipe,
+  Post,
+  Query,
+} from '@nestjs/common';
+import { RegisterPaymentParams } from './payment.repository';
 import { PaymentService } from './payment.service';
 
 @Controller('payments')
@@ -17,5 +25,12 @@ export class PaymentController {
         limit,
       }),
     };
+  }
+
+  @Post()
+  async createPayment(@Body() params: RegisterPaymentParams) {
+    console.log(params);
+    const payment = await this.service.createPayment(params);
+    return { data: payment };
   }
 }

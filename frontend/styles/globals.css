@@ -105,3 +105,12 @@ a {
     color-scheme: dark;
   }
 }
+
+.container {
+  margin: 0 auto;
+  width: 880px;
+}
+
+label {
+  display: block;
+}

@@ -1,24 +1,22 @@
-import Link from "next/link"
-import PaymentForm from "./components/form";
+import Link from 'next/link'
+import PaymentForm from './components/form'
 
 export type CategoryProps = {
   data: {
     items: {
-      id: number;
-      code: string;
-      name: string;
+      id: number
+      code: string
+      name: string
     }[]
   }
 }
 
-const AddPayments = ({ data }: CategoryProps) => {
-  return (
+const EditPayment = ({ data }: CategoryProps) => {
+return (
     <>
       <div className="container">
-        <h3>支払い登録</h3>
-        <PaymentForm
-          categories={data.items}
-        />
+        <h3>支払い内容変種</h3>
+        <PaymentForm categories={data.items} />
         <Link href="/">HOME</Link>
       </div>
     </>
@@ -31,4 +29,4 @@ export async function getServerSideProps() {
   return { props: { data } }
 }
 
-export default AddPayments
+export default EditPayment

@@ -6,9 +6,10 @@ import {
   Param,
   ParseIntPipe,
   Post,
+  Put,
   Query,
 } from '@nestjs/common';
-import { RegisterPaymentParams } from './payment.repository';
+import { PaymentParams } from './payment.repository';
 import { PaymentService } from './payment.service';
 
 @Controller('payments')
@@ -37,9 +38,17 @@ export class PaymentController {
   }
 
   @Post()
-  async createPayment(@Body() params: RegisterPaymentParams) {
-    console.log(params);
+  async createPayment(@Body() params: PaymentParams) {
     const payment = await this.service.createPayment(params);
+    return { data: payment };
+  }
+
+  @Put(':id')
+  async updatePayment(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() params: PaymentParams,
+  ) {
+    const payment = await this.service.updatePayment(id, params);
     return { data: payment };
   }
 }

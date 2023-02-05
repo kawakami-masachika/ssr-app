@@ -6,7 +6,7 @@ export type PaymentQueryParams = {
   limit: number;
 };
 
-export type RegisterPaymentParams = {
+export type PaymentParams = {
   name: string;
   memo?: string;
   price: string;
@@ -19,12 +19,23 @@ export class PaymentRepository extends PrismaClient implements OnModuleInit {
     await this.$connect();
   }
 
-  async addPayment(params: RegisterPaymentParams) {
+  async addPayment(params: PaymentParams) {
     return await this.payment.create({
       data: {
         ...params,
         price: parseInt(params.price),
         purchaseDate: new Date(),
+      },
+    });
+  }
+
+  async updatePayment(id: number, params: PaymentParams) {
+    return await this.payment.update({
+      where: { id },
+      data: {
+        ...params,
+        price: parseInt(params.price),
+        updatedAt: new Date(),
       },
     });
   }

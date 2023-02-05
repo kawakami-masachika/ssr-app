@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PaymentRepository, RegisterPaymentParams } from './payment.repository';
+import { PaymentRepository, PaymentParams } from './payment.repository';
 import { PaymentQueryParams } from './payment.repository';
 
 @Injectable()
@@ -14,7 +14,11 @@ export class PaymentService {
     return this.repository.findPayment(id);
   }
 
-  createPayment(params: RegisterPaymentParams) {
+  createPayment(params: PaymentParams) {
     return this.repository.addPayment(params);
+  }
+
+  updatePayment(id: number, params: PaymentParams) {
+    return this.repository.updatePayment(id, params);
   }
 }

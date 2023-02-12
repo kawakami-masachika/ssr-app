@@ -1,17 +1,15 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
-import { PrismaClient } from '@prisma/client';
+import { Payment, PrismaClient } from '@prisma/client';
 
 export type PaymentQueryParams = {
   offset: number;
   limit: number;
 };
 
-export type PaymentParams = {
-  name: string;
-  memo?: string;
-  price: string;
-  categoryCode: string;
-};
+export type PaymentParams = Pick<
+  Payment,
+  'name' | 'price' | 'categoryCode' | 'memo'
+>;
 
 @Injectable()
 export class PaymentRepository extends PrismaClient implements OnModuleInit {
@@ -23,7 +21,7 @@ export class PaymentRepository extends PrismaClient implements OnModuleInit {
     return await this.payment.create({
       data: {
         ...params,
-        price: parseInt(params.price),
+        // price: parseInt(params.price),
         purchaseDate: new Date(),
       },
     });
@@ -34,7 +32,6 @@ export class PaymentRepository extends PrismaClient implements OnModuleInit {
       where: { id },
       data: {
         ...params,
-        price: parseInt(params.price),
         updatedAt: new Date(),
       },
     });

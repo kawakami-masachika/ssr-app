@@ -27,7 +27,7 @@ const PaymentForm = (props: PaymentForm) => {
 
   // 支払いカテゴリー
   const categories = props.categories.map((c) => (
-    <option key={c.id} value={c.code}>
+    <option key={c.code} value={c.code}>
       {c.name}
     </option>
   ));

@@ -11,6 +11,27 @@ import {
 } from '@nestjs/common';
 import { PaymentParams } from './payment.repository';
 import { PaymentService } from './payment.service';
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import { Type } from 'class-transformer';
+
+class CreatePaymentDto {
+  @IsString()
+  @IsNotEmpty()
+  name: string;
+
+  @Type(() => Number)
+  @IsNumber()
+  @IsNotEmpty()
+  price: number;
+
+  @IsString()
+  @IsNotEmpty()
+  categoryCode: string;
+
+  @IsString()
+  @IsOptional()
+  memo: string | null;
+}
 
 @Controller('payments')
 export class PaymentController {
@@ -21,7 +42,6 @@ export class PaymentController {
     @Query('limit', ParseIntPipe) limit: number,
     @Query('offset', ParseIntPipe) offset: number,
   ) {
-    console.log(offset, limit);
     return {
       payments: await this.service.findPayments({
         offset,
@@ -38,7 +58,8 @@ export class PaymentController {
   }
 
   @Post()
-  async createPayment(@Body() params: PaymentParams) {
+  async createPayment(@Body() params: CreatePaymentDto) {
+    console.log(params);
     const payment = await this.service.createPayment(params);
     return { data: payment };
   }

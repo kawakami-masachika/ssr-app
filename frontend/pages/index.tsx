@@ -1,17 +1,15 @@
-import { Inter } from '@next/font/google'
 import Head from 'next/head'
+import { H, Section } from 'react-headings'
+import styles from './index.module.scss'
 
-const inter = Inter({ subsets: ['latin'] })
 type HomeProps = { data: { hello: string } }
 export default function Home({ data }: HomeProps) {
   return (
     <>
       <Head>
-        <title>ssr app</title>
+        <title>ssr app home</title>
       </Head>
-      <div>
-        <p>{data.hello}</p>
-      </div>
+      <Section component={<H>Home</H>}></Section>
     </>
   )
 }

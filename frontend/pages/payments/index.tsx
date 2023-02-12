@@ -1,5 +1,5 @@
-import Link from "next/link"
-import { useState } from "react"
+import Head from 'next/head'
+import { H, Section } from 'react-headings'
 
 export type PaymentsProps = {
   data: {
@@ -9,14 +9,15 @@ export type PaymentsProps = {
 
 const Payments = ({ data }: PaymentsProps) => {
   console.log(data)
-  const [count, setCount] = useState(0);
   const payments = data.payments.map((p) => <li key={p.id}>{p.name}</li>)
   return (
     <>
-      <div>Payments</div>
-      <ul>{payments}</ul>
-      <button onClick={() => setCount(count + 1)}>count up</button>
-      <Link href="/">HOME</Link>
+      <Head>
+        <title>payment list</title>
+      </Head>
+      <Section component={<H>Payments</H>}>
+        <ul>{payments}</ul>
+      </Section>
     </>
   )
 }

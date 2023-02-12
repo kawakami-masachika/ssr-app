@@ -10,4 +10,8 @@ export class CategoryRepository extends PrismaClient implements OnModuleInit {
   fetchCategories() {
     return this.category.findMany();
   }
+
+  createCategory(category: { code: string; name: string }) {
+    return this.category.create({ data: category });
+  }
 }

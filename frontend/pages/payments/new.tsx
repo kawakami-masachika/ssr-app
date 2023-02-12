@@ -1,12 +1,13 @@
 import Link from "next/link"
 import PaymentForm from "./components/form";
+import Head from 'next/head'
 
 export type CategoryProps = {
   data: {
     items: {
-      id: number;
-      code: string;
-      name: string;
+      id: number
+      code: string
+      name: string
     }[]
   }
 }
@@ -14,6 +15,9 @@ export type CategoryProps = {
 const AddPayments = ({ data }: CategoryProps) => {
   return (
     <>
+      <Head>
+        <title>add new payment</title>
+      </Head>
       <div className="container">
         <h3>支払い登録</h3>
         <PaymentForm

@@ -2,6 +2,7 @@ import GlobalNavigation from '../GlobalNavigation'
 import styles from './index.module.css'
 import { useDarkMode } from '../../hooks/useDarkMode'
 import { useDayTime } from '../../hooks/useDayTime'
+import { ToastContainer } from '../Toast/ToastContainer'
 
 type Props = {
   children: JSX.Element
@@ -19,6 +20,8 @@ const Layout = (props: Props) => {
         <GlobalNavigation></GlobalNavigation>
         <main className={styles.main}>{props.children}</main>
       </div>
+
+      <ToastContainer />
     </>
   )
 }

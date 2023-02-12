@@ -12,7 +12,7 @@ export type CategoryProps = {
 }
 
 const EditPayment = ({ data }: CategoryProps) => {
-return (
+  return (
     <>
       <div className="container">
         <h3>支払い内容変種</h3>

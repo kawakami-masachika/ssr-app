@@ -2,10 +2,13 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { H, Section } from 'react-headings'
 import { useForm } from 'react-hook-form'
+import { useState } from 'react'
+import { Toast } from '../../components/Toast/Toast'
 
 const NewCategory = () => {
   const form = useForm()
   const router = useRouter()
+  const [success, setSuccess] = useState(false)
 
   const onSubmit = async (formValue: any) => {
     await fetch('http://localhost:3200/category', {
@@ -13,7 +16,7 @@ const NewCategory = () => {
       method: 'POST',
       body: JSON.stringify(formValue),
     })
-    router.push('/categories')
+    setSuccess(true)
   }
 
   return (
@@ -40,6 +43,7 @@ const NewCategory = () => {
           <button type="submit">作成</button>
         </form>
       </Section>
+      <Toast visible={success}>成功だよ</Toast>
     </>
   )
 }

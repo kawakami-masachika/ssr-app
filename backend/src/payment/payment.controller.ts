@@ -38,7 +38,6 @@ export class PaymentController {
 
   @Post()
   async createPayment(@Body() params: RegisterPaymentParams) {
-    console.log(params);
     const payment = await this.service.createPayment(params);
     return { data: payment };
   }

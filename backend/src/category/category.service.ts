@@ -8,4 +8,8 @@ export class CategoryService {
   fetch() {
     return this.repository.fetchCategories();
   }
+
+  create(category: { code: string; name: string }) {
+    return this.repository.createCategory(category);
+  }
 }

@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { H, Section } from 'react-headings'
 
 export type CategoriesProps = {
   data: {
@@ -7,13 +7,12 @@ export type CategoriesProps = {
 }
 
 const Categories = ({ data }: CategoriesProps) => {
-  const categories = data.items.map((p) => <li key={p.id}>{p.name}</li>)
+  console.log(data)
+  const categories = data.items.map((p) => <li key={p.code}>{p.name}</li>)
   return (
-    <>
-      <div>Categories</div>
+    <Section component={<H>Categories</H>}>
       <ul>{categories}</ul>
-      <Link href="/">戻る</Link>
-    </>
+    </Section>
   )
 }
 

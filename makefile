@@ -19,6 +19,16 @@ backend-init:
 	@cd ./backend && pnpm install
 	@echo
 
+# compassプロジェクトを立ち上げます
+run-server:
+	@echo "サーバーを立ち上げます"
+	@cd ./compass && ./gradlew bootRun
+
+clean-server:
+	@echo "ビルドキャッシュを削除します"
+	@cd ./compass && ./gradlew clean
+	@echo "完了しました"
+
 # dbのcontainerを立ち上げます
 db-init:
 	@echo "Dockerコンテナを立ち上げます"

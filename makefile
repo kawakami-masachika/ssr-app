@@ -38,8 +38,11 @@ db-init:
 # dbをスキーマに従ってマイグレーションします
 db-migrate:
 	@echo "データベースのマイグレーションを開始します"
-	@cd ./backend && pnpm db:migrate
-	@echo
+	@cd ./study-group && ./gradlew flywayMigrate
+
+db-codegen:
+	@echo "データベースからコード生成を開始します"
+	@cd ./study-group && ./gradlew generateJooq
 
 # dbにサンプルデータを投入します
 db-seed:

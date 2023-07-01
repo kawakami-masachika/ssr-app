@@ -1,11 +1,20 @@
 package com.example.repository.user;
 
-import org.springframework.stereotype.Component;
-import com.example.db.jooq.gen.public_.tables.Users;
+import org.springframework.stereotype.Repository;
 
-@Component
+@Repository
 class UserRepository {
-  public void save(Users user) {
+  // private final UserDao userDao;
 
+  public UserRepository() {
+    // this.userDao = new UserDao();
   }
+
+  public void create() {
+    // userDao.insert(user);
+  }
+
+  // public User findById(Integer id) {
+  // return userDao.fetchOneById(id);
+  // }
 }

@@ -1,11 +1,11 @@
 # 全てのmoduleで必要な依存関係を解決し、dbのcontainerを立ち上げます
-initialize-all: cowsay-initialize-start frontend-init db-up db-migrate db-codegen cowsay-initialize-end
+initialize-all: cowsay-initialize-start frontend-init db-up db-migrate jooq-codegen cowsay-initialize-end
 
 cowsay-initialize-start:
-	@cd ./backend && pnpx cowsay "環境構築始めます"
+	@cd ./frontend && pnpx cowsay "環境構築始めます"
 
 cowsay-initialize-end:
-	@cd ./backend && pnpx cowsay "終わったよ"
+	@cd ./frontend && pnpx cowsay "終わったよ"
 
 # frontendの立ち上げに必要な依存関係を解決します
 frontend-init:
@@ -13,7 +13,12 @@ frontend-init:
 	@cd ./frontend && pnpm install
 	@echo
 
-# compassプロジェクトを立ち上げます
+# backendプロジェクトをビルドします
+build-server:
+	@echo "サーバーをビルドします"
+	@cd ./study-group && ./gradlew build --stacktrace
+
+# backendプロジェクトを立ち上げます
 run-server:
 	@echo "サーバーを立ち上げます"
 	@cd ./study-group && ./gradlew bootRun
@@ -29,14 +34,27 @@ db-up:
 	@cd ./infrastructure && docker compose up -d
 	@echo
 
-# dbをスキーマに従ってマイグレーションします
-db-migrate:
+db-down:
+	@echo "Dockerコンテナを削除します"
+	@cd ./infrastructure && docker compose down -v
+
+flyway-migrate:
 	@echo "データベースのマイグレーションを開始します"
 	@cd ./study-group && ./gradlew flywayMigrate
 
-db-codegen:
+flyway-clean:
+	@echo "データベースのマイグレーションを開始します"
+	@cd ./study-group && ./gradlew flywayClean
+
+jooq-codegen:
 	@echo "データベースからコード生成を開始します"
 	@cd ./study-group && ./gradlew generateJooq
+
+jooq-clean:
+	@echo "データベースからのコード削除を開始します"
+	@cd ./study-group && ./gradlew cleanGenerateJooq
+
+backend-init: db-down db-up flyway-clean flyway-migrate jooq-clean jooq-codegen
 
 # インストールした全ての依存関係を削除し、初期化します
 allclean:

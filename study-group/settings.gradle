@@ -2,3 +2,4 @@ rootProject.name = 'study-group'
 
 include ':application'
 include ':repository'
+include ':db'

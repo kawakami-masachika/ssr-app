@@ -1,90 +1,18 @@
-buildscript {
-    dependencies {
-        // コード生成用の依存モジュール定義
-        classpath group: "nu.studer", name:"gradle-jooq-plugin", version:"${jooqVersion}"
-        classpath group: "org.flywaydb", name: "flyway-gradle-plugin", version: "${flywayVersion}"
-        classpath group: 'org.postgresql', name: 'postgresql', version: "${postgresqlDriverVersion}"
-    }
-}
-
 plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.1.1' apply false
 	id 'io.spring.dependency-management' version '1.1.0'
-  id 'org.flywaydb.flyway' version "${flywayVersion}"
-  id 'nu.studer.jooq' version "${jooqVersion}"
-
 }
 
 group = 'com.example.repository'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
 
 repositories {
 	mavenCentral()
 }
 
-def dbUrl = "jdbc:postgresql://${dbHost}:${dbPort}/${dbName}"
-def jdbcDriver = "org.postgresql.Driver"
-def jooqDestDir = "$buildDir/jooq-gen/"
-def jooqDestPackage = 'com.example.db.jooq.gen'
-
 dependencies {
-  implementation group: "javax.annotation", name:"javax.annotation-api", version:"1.3.2"
-  testImplementation group: "org.flywaydb", name:"flyway-core", version: "${flywayVersion}"
-  testImplementation group: "org.springframework.boot", name:"spring-boot-starter-data-jdbc", version:"${springBootVersion}"
-  implementation group: 'org.postgresql', name: 'postgresql', version: "${postgresqlDriverVersion}"
   implementation 'org.slf4j:slf4j-simple:1.7.25'
-  jooqGenerator 'org.postgresql:postgresql:42.5.1'
-}
-
-flyway {
-  url = "${dbUrl}"
-  user = "${dbUser}"
-  password = "${dbPassword}"
-}
-
-jooq {
-  configurations {
-    main {
-      generationTool {
-        jdbc {
-          driver = 'org.postgresql.Driver'
-          url = "${dbUrl}"
-          user = "${dbUser}"
-          password = "${dbPassword}"
-        }
-        generator {
-          name = 'org.jooq.codegen.DefaultGenerator'
-          database {
-            name = 'org.jooq.meta.postgres.PostgresDatabase'
-            inputSchema = 'public'
-          }
-
-          generate {
-            deprecated = false
-            records = true
-            fluentSetters = true
-            daos = true
-            immutablePojos = true
-            pojosEqualsAndHashCode = true
-          }
-
-          target {
-            packageName = "${jooqDestPackage}"
-            directory = "${jooqDestDir}"
-          }
-          strategy.name = 'org.jooq.codegen.DefaultGeneratorStrategy'
-        }
-      }
-    }
-  }
-}
-
-tasks.named("generateJooq") {
-  dependsOn(tasks.flywayMigrate)
-}
-
-clean {
-    delete jooqDestDir
+  testImplementation group: "org.springframework.boot", name:"spring-boot-starter-data-jdbc", version:"${springBootVersion}"
+  implementation group: "org.springframework", name:"spring-context", version:"2.0.5"
+  implementation project(':db')
 }

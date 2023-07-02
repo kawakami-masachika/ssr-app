@@ -1,7 +1,6 @@
 rootProject.name = 'study-group'
 
-include ':web'
-include ':repository'
-include ':db'
+include ':application'
+include ':presentation'
+include ':infrastructure'
 include ':domain'
-include ':core'

@@ -1,4 +1,4 @@
-package com.example.domain.command;
+package com.studygroup.domain.command;
 
 public class CreateUserCommand {
 }

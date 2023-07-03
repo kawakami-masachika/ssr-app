@@ -1,4 +1,4 @@
-package com.example.application.studygroup;
+package com.example.web.studygroup;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

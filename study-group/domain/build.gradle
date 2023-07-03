@@ -1,0 +1,14 @@
+
+plugins {
+  id 'java'
+}
+
+repositories {
+	mavenCentral()
+}
+
+group = 'com.example.domain'
+
+dependencies {
+  implementation project(":core")
+}

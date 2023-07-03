@@ -15,4 +15,5 @@ dependencies {
   testImplementation group: "org.springframework.boot", name:"spring-boot-starter-data-jdbc", version:"${springBootVersion}"
   implementation group: "org.springframework", name:"spring-context", version:"2.0.5"
   implementation project(':db')
+  implementation project(':domain')
 }

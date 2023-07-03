@@ -10,8 +10,6 @@
     "prettier"
   ],
   "rules": {
-    "quotes": ["single"],
-    "jsx-quotes": [2, "prefer-single"],
     "sort-imports": 0,
     "import/order": [2, { "alphabetize": { "order": "asc" } }],
     "no-else-return": [2, {"allowElseIf": false }],

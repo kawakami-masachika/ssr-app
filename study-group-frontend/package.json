@@ -45,5 +45,10 @@
     "*.{css,less,sass,scss}": [
       "stylelint --fix"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   }
 }

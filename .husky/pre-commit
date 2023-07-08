@@ -3,3 +3,5 @@
 
 cd study-group-frontend
 pnpm run format
+pnpm pnpm run lint
+cd ..

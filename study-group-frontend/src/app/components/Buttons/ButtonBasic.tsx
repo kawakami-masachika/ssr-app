@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 
-export type Props = React.ComponentPropsWithoutRef<"button"> & {
+export type Props = React.ComponentPropsWithoutRef<'button'> & {
   buttonText: string;
   variant?: 'contained' | 'outline';
   fullWidth?: boolean;
@@ -8,7 +8,7 @@ export type Props = React.ComponentPropsWithoutRef<"button"> & {
   color?: 'info' | 'warning' | 'error';
   startIcon?: ReactNode;
   endIcon?: ReactNode;
-}
+};
 
 export const ButtonBasic = ({
   disabled = false,
@@ -18,13 +18,12 @@ export const ButtonBasic = ({
   type = 'submit',
   ...props
 }: Props) => {
-
   const buttonStyles = () => {
-    const baseStyles = ['btn', `btn-${color}`]
-    if(variant === 'outline') baseStyles.push('btn-outline');
-    if(size !== 'medium') baseStyles.push(`btn-${size}`);
-    if(props.fullWidth) baseStyles.push(`btn-block`)
-    return baseStyles
+    const baseStyles = ['btn', `btn-${color}`];
+    if (variant === 'outline') baseStyles.push('btn-outline');
+    if (size !== 'medium') baseStyles.push(`btn-${size}`);
+    if (props.fullWidth) baseStyles.push(`btn-block`);
+    return baseStyles;
   };
 
   return (

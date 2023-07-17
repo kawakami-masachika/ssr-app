@@ -1,8 +1,8 @@
-'use client'
+'use client';
 export const Icon = () => {
-    return (
-        <>
-            <div>TEST</div>
-        </>
-    )
-}
+  return (
+    <>
+      <div>TEST</div>
+    </>
+  );
+};
